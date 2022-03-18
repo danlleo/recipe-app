@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import "@splidejs/splide/dist/css/splide.min.css";
@@ -13,7 +14,7 @@ const Veggie = () => {
 
   const getVeggie = async () => {
     if (localStorage.getItem("veggie")) {
-      setVeggie(JSON.parse(localStorage.getItem("popularRecipies")));
+      setVeggie(JSON.parse(localStorage.getItem("veggie")));
       return;
     }
 
@@ -48,9 +49,11 @@ const Veggie = () => {
         {veggie.map((recipe) => (
           <SplideSlide key={recipe.id}>
             <Card>
-              <p>{recipe.title}</p>
-              <img src={recipe.image} alt={recipe.title} />
-              <Gradient />
+              <Link to={`/recipe/${recipe.id}`}>
+                <p>{recipe.title}</p>
+                <img src={recipe.image} alt={recipe.title} />
+                <Gradient />
+              </Link>
             </Card>
           </SplideSlide>
         ))}
